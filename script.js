@@ -1,0 +1,10 @@
+const toggle=document.querySelector('.menu-toggle');
+const nav=document.querySelector('.main-nav');
+toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false')}));
+document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{document.querySelector('.filter.active')?.classList.remove('active');btn.classList.add('active');const filter=btn.dataset.filter;document.querySelectorAll('.project-card').forEach(card=>card.hidden=filter!=='all'&&card.dataset.category!==filter)}));
+const dialog=document.querySelector('.project-dialog');
+document.querySelectorAll('.project-open').forEach(btn=>btn.addEventListener('click',()=>{dialog.querySelector('.dialog-image').src=btn.dataset.image;dialog.querySelector('.dialog-image').alt=btn.dataset.title;dialog.querySelector('.dialog-copy h2').textContent=btn.dataset.title;dialog.querySelector('.dialog-copy>p:last-child').textContent=btn.dataset.desc;dialog.showModal()}));
+dialog.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());
+dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+document.querySelector('#year').textContent=new Date().getFullYear();
